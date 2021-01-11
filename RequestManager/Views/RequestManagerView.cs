@@ -2,12 +2,6 @@
 using RequestManager.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RequestManager.Views
@@ -17,6 +11,9 @@ namespace RequestManager.Views
         /// id selected if request is edited
         private int _id = -1;
         private readonly RequestController _requestController = new RequestController();
+        /// <summary>
+        /// Instanciateur de la vue.
+        /// </summary>
         public RequestManagerView()
         {
             InitializeComponent();
@@ -38,9 +35,9 @@ namespace RequestManager.Views
         private void dgvRequest_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.ColumnIndex == 3)
-                e.Value = ((DateTime)dgv_request.Rows[e.RowIndex].Cells[e.ColumnIndex].Value).ToString();
+                e.Value = ((DateTime)dgv_request.Rows[e.RowIndex].Cells[e.ColumnIndex].Value).ToShortDateString();
             if (e.ColumnIndex == 4)
-                e.Value = ((DateTime)dgv_request.Rows[e.RowIndex].Cells[e.ColumnIndex].Value).ToString();
+                e.Value = ((DateTime)dgv_request.Rows[e.RowIndex].Cells[e.ColumnIndex].Value).ToShortDateString();
         }
 
         private void UpdateDataGridView(List<Request> requests = null)
@@ -116,10 +113,10 @@ namespace RequestManager.Views
 
             if (_id == -1)
             {
-                _requestController.Create(title, description, new DateTime(), new DateTime(), statusEnum, priorityEnum);
+                _requestController.Create(title, description, DateTime.Now, DateTime.Now, statusEnum, priorityEnum);
             } else
             {
-                _requestController.Update(_id, title, description, _requestController.GetById(_id).CreatedOn, new DateTime(), statusEnum, priorityEnum);
+                _requestController.Update(_id, title, description, _requestController.GetById(_id).CreatedOn, DateTime.Now, statusEnum, priorityEnum);
             }
             SetRequestInForm();
         }
