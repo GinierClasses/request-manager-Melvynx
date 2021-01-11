@@ -72,6 +72,7 @@ namespace RequestManager.Views
             if (_id == -1)
             {
                 MessageBox.Show("Il faut séléctionner une requête pour en supprimer une.", "Avertissement", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
             try
